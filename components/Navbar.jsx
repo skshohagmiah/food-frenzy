@@ -1,4 +1,5 @@
 'use client'
+import { useCartContext } from '@/context/ContextPovider';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
@@ -8,8 +9,8 @@ import MobileNavbar from './MobileNavbar';
 
 const Navbar = () => {
   const pathname = usePathname();
-  console.log(pathname)
   const {data:session} = useSession();
+  const {state} = useCartContext();
   return (
     <header className='flex items-center justify-between sticky bg-gray-50 top-0 w-full py-2' style={{zIndex:'10'}}>
        <Link className='grow md:grow-0' href='/'>
@@ -28,10 +29,10 @@ const Navbar = () => {
            ):(
             <Link href='/signin' className='hover:text-gray-300 px-4 py-2 font-semibold ring-2 rounded'>Sign In</Link>
            )}
-            <Link href='/card' className='relative hover:text-gray-300'>
+            <Link href='/cart' className='relative hover:text-gray-300'>
             <FaCartPlus  className=' text-2xl md:text-3xl'/>
-            <span className='absolute md:-right-3 md:-top-2 -top-1 -right-1 text-[8px] md:text-xs bg-red-600
-            md:w-5 md:h-5 flex items-center justify-center text-gray-100 rounded-full ' >12</span>
+            <span className='absolute md:-right-3 md:-top-2 -top-1 -right-2 text-[10px] md:text-xs bg-red-600
+           w-5 h-5 flex items-center justify-center text-gray-100 rounded-full' >{state?.cart?.length}</span>
             </Link>
         </div>
         {/* mobile navbar */}

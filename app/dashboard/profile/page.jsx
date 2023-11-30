@@ -1,8 +1,9 @@
+import ImageUpload from "@/components/ImageUpload";
 import { authOptions } from "@/libs/AuthOptions";
 import { connectToDatabase } from "@/libs/connectToDatabase";
 import { getUser } from "@/libs/getUser";
 import { User } from "@/models/user";
-import Image from 'next/image';
+import { revalidatePath } from 'next/navigation';
 
 const fetchUser =async (email) => {
    await connectToDatabase()
@@ -21,6 +22,7 @@ const Profile = async() => {
         const {username,email,phone,street,postalCode,city,country} = Object.fromEntries(FormData)
         try {
             await User.updateOne({_id:currentUser._id}, {username,email, img,phone,street,postalCode,city,country})
+            revalidatePath('/dashboard')
         } catch (error) {
             console.log(error)
         }
@@ -28,11 +30,10 @@ const Profile = async() => {
 
   return (
     <section className="flex flex-col md:flex-row w-full md:items-start items-center md:w-fit  gap-4">
-        <div className="flex items-center justify-center flex-col">
-            <Image className="rounded" src={currentUser?.img} alt="user pic" width={200} height={200}/>
-            <button className="ring-2 p-2 m-2 rounded-md text-center">Change Image</button>
+        <div className="flex items-center justify-center flex-col w-full">
+            <ImageUpload />
         </div>
-        <div>
+        <div className="w-full">
             <h2 className="text-3xl font-semibold m-2">User Information</h2>
             <form action={handelSubmit} className="flex flex-col gap-2 m-2 md:w-[40rem]">
                 <label htmlFor="username">Username:</label>
@@ -51,14 +52,14 @@ const Profile = async() => {
                 <input type="text" name='street' value={currentUser?.street} placeholder={currentUser?.street}/>
 
                 <label htmlFor="postalcode">Postal code:</label>
-                <input type="text" name='postalCode' value={currentUser?.postalCode} placeholder={currentUser?.postalCode}/>  
+                <input type="number" name='postalCode' value={currentUser?.postalCode} placeholder={currentUser?.postalCode}/>  
 
                 <label htmlFor="city">City:</label>
                 <input type="text" name='city' value={currentUser?.city} placeholder={currentUser?.city}/>
 
                 <label htmlFor="country">Country:</label>
                 <input type="text" name='country' value={currentUser?.country} placeholder={currentUser?.country}/>
-                <input className="p-2 bg-orange-500" type="submit" value='Update' name="" id="" />
+                <input className="p-2 hover:ring-2 hover:bg-transparent hover:text-gray-900 transition-all rounded-md bg-orange-500 text-gray-100 ring-0" type="submit" value='Update' name="" id="" />
             </form>
         </div>
     </section>
