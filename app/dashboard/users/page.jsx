@@ -1,26 +1,33 @@
 
-import { authOptions } from "@/libs/AuthOptions";
 import { connectToDatabase } from "@/libs/connectToDatabase";
-import { getUser } from "@/libs/getUser";
 import { User } from "@/models/user";
+import Image from 'next/image';
 
-const fetchUser =async (email) => {
+const fetchUser =async () => {
    await connectToDatabase()
-   const currentUser = await User.findOne({email})
-   return currentUser;
+   const users = await User.find({})
+   return users;
 }
 
 const UserPage = async() => {
 
-  const user = await getUser(authOptions);
-  const currentUser =await fetchUser(user.user?.email)
+  const users = await fetchUser();
 
 
-  if(currentUser?.role !== 'admin'){
-    return <h2 className="text-red-600 m-4 text-center font-bold text-2xl">This Page Is Only Available For Admin User</h2> 
-  }
-
-  return <div>users</div>
+  return <div className="p-4 text-center w-full">
+    <h2 className="text-2xl font-bold m-2">All Your Users</h2>
+    <div className="w-full">
+      <div className=" flex items-center gap-4 w-full">
+        {users?.map(user => (
+          <div key={user._id} className="flex items-center justify-between w-full border-2 p-2 rounded-md">
+            <Image src={user?.img} alt="user pic" width={100} height={100} />
+            <h3>{user?.username}</h3>
+            <p>{user?.email}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
 }
 
 export default UserPage

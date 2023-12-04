@@ -101,7 +101,7 @@ const CartPage = () => {
           <button className="p-3 mt-2 text-gray-100 bg-blue-700 rounded-full text-xl m-2 hover:ring-2 hover:bg-transparent hover:text-gray-900 transition-all">
             Checkout
           </button>
-          <Link className="text-xs p-2" href="/dashboard/profile">
+          <Link className="text-xs p-2" href="/profile">
             Want to Change Address ?{" "}
             <span className="underline">Click Here</span>
           </Link>

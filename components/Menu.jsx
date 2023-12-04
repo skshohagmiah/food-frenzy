@@ -7,7 +7,7 @@ import MenuItem from './MenuItem';
 async function fetchMenu(){
 try {
   connectToDatabase()
-  const menus = await Menu.find({});
+  const menus = await Menu.find({}).populate('category');
   return menus
 } catch (error) {
   console.log(error)

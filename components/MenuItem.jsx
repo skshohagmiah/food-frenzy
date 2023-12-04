@@ -19,11 +19,12 @@ const MenuItem = ({ menu }) => {
   return (
     <>
       <div className='flex flex-col relative h-fit gap-2 rounded-md overflow-hidden text-center shadow-lg' style={{ zIndex: '1' }}>
-        <div className='relative w-[100%] h-[300px]'>
+        <div className='relative w-[100%] h-[250px]'>
           <Image src={item?.img} alt='cake' className='w-full h-full' objectFit='cover' layout='fill' />
         </div>
-        <h2 className='text-2xl mt-2 font-semibold'>{item?.title} (500gm)</h2>
+        <h2 className='text-xl mt-2 font-semibold'>{item?.title.slice(0,30)} (500gm)</h2>
         <p className='font-bold text-2xl'>$ {item?.price}</p>
+        <p className='font-light text-sml'>{item?.category?.name}</p>
 
         {isItemInCart ? (
           <button

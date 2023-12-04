@@ -15,6 +15,15 @@ const orderSchema = new mongoose.Schema({
             required:true
         }
     ],
+    isPaid:{
+        type:Boolean,
+        default:false
+    },
+    status:{
+        type:String,
+        enum:['pending', 'preparing', 'shipping', 'delivered'],
+        default:'pending'
+    }
 },{timestamps:true})
 
 export const Order = mongoose.models.Menu || mongoose.model("Order", orderSchema);

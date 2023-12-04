@@ -1,4 +1,4 @@
-import mongoose from "mongoose";
+import mongoose, { Schema } from "mongoose";
 
 
 const menuSchema = new mongoose.Schema({
@@ -10,9 +10,20 @@ const menuSchema = new mongoose.Schema({
         type:Number,
         required:true,
     },
+    description:{
+        type:String,
+    },
     img:{
         type:String,
         required:true,
+    },
+    restaurant:{
+        type:Schema.Types.ObjectId,
+        ref:"Restaurant"
+    },
+    category:{
+        type:Schema.Types.ObjectId,
+        ref:"Category"
     }
 },{timestamps:true})
 
