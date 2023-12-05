@@ -128,10 +128,10 @@ const [restaurant, setRestaurant] = useState([]);
       <h2 className="text-2xl font-bold text-center border-t-2 mt-6">All Your Restaurant</h2>
       <div className="flex flex-col gap-4 items-center">
         {restaurant?.map((res) => (
-            <div key={res._id} className="flex items-center justify-between w-full">
+            <div key={res._id} className="flex items-center gap-2 justify-between w-full">
                 <Image  src={res?.image} className="rounded-full" alt="restaurant image" width={100} height={100}/>
                 <h3>{res.name}</h3>
-                <p>{res.description}</p>
+                <p>{res.description.slice(0,100)}...</p>
             </div>
         ))}
       </div>

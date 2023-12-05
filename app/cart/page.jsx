@@ -1,19 +1,18 @@
 "use client";
 import { useCartContext } from "@/context/ContextPovider";
+import { useSession } from "next-auth/react";
 import Image from "next/image";
 import Link from "next/link";
-import { useEffect } from "react";
+import { useRouter } from "next/navigation";
 import { FiMinus } from "react-icons/fi";
 import { GoPlus } from "react-icons/go";
 
-const CartPage = () => {
-  const { state, dispatch } = useCartContext();
-  const cart = state.cart;
-  console.log(cart);
 
-  useEffect(() => {
-    localStorage.setItem("state", JSON.stringify(state));
-  }, [state]);
+const CartPage = () => {
+  const {state, dispatch } = useCartContext();
+  const session = useSession();
+  const router = useRouter();
+  const cart = state?.cart
 
   const shippingFee = 5;
   const { total } = cart?.reduce(
@@ -23,6 +22,16 @@ const CartPage = () => {
     },
     { total: 0 }
   );
+
+
+  function handleCheckout(){
+    if(!session?.data?.user){
+      router.push('/signin');
+    }
+    else{
+      alert('Sorry, Checkout functionality have not been implemented yet, because stripe is not available in bangladesh !')
+    }
+  }
 
   return (
     <div className="flex flex-col lg:flex-row  w-full items-center justify-between gap-2">
@@ -98,7 +107,7 @@ const CartPage = () => {
           <h2 className="text-2xl flex font-semibold mt-4 justify-between p-2 border-b-4">
             Total: <span>$ {total && total + shippingFee}</span>
           </h2>
-          <button className="p-3 mt-2 text-gray-100 bg-blue-700 rounded-full text-xl m-2 hover:ring-2 hover:bg-transparent hover:text-gray-900 transition-all">
+          <button onClick={handleCheckout} className="p-3 mt-2 text-gray-100 bg-blue-700 rounded-full text-xl m-2 hover:ring-2 hover:bg-transparent hover:text-gray-900 transition-all">
             Checkout
           </button>
           <Link className="text-xs p-2" href="/profile">

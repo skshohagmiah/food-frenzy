@@ -53,7 +53,7 @@ const Navbar = () => {
         >
           Restaurant
         </Link>
-        <CategoryLink pathname={pathname} />
+        <CategoryLink pathname={pathname} color='text-gray-600'/>
         <Link
           className={
             pathname === "/about"

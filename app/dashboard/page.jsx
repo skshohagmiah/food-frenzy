@@ -2,7 +2,6 @@
 
 const Dashboard = () => {
 
-
   return (
     <div>overview</div>
   )

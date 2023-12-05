@@ -3,7 +3,7 @@ import { useEffect, useState } from 'react';
 import { IoIosArrowDropdown } from "react-icons/io";
 
 
-const CategoryLink = ({ pathname }) => {
+const CategoryLink = ({ pathname,color }) => {
     const [categories, setCategories] = useState();
     const [isOpen, setIsOpen] = useState(false);
 
@@ -24,12 +24,12 @@ const CategoryLink = ({ pathname }) => {
       <Link
         className={
           pathname === '/categories'
-            ? 'text-gray-950 underline'
-            : 'hover:text-gray-500 text-gray-600 group'
+            ? 'md:text-gray-950 underline'
+            :`hover:text-gray-500 group ${color}`
         }
         href="/categories"
       >
-        <div class="relative flex gap-1 items-center" onMouseEnter={() => setIsOpen(true)} onMouseLeave={() => setIsOpen(false)}>
+        <div class="relative  flex gap-1 items-center" onMouseEnter={() => setIsOpen(true)} onMouseLeave={() => setIsOpen(false)}>
           Categories
           <IoIosArrowDropdown />
        {isOpen && (

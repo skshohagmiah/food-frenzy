@@ -20,3 +20,9 @@
 input {
   @apply p-2 w-full rounded-md ring-2;
 }
+
+html,
+body,
+:root {
+  height: 100%;
+}

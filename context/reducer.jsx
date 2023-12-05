@@ -1,9 +1,9 @@
-'use client'
+"use client";
 export const initialState = {
   total: 0,
   subTotal: 0,
   shippingFee: 0,
-  cart: [],
+  cart: []
 };
 
 export const reducer = (state, action) => {
@@ -14,7 +14,9 @@ export const reducer = (state, action) => {
         cart: [...state.cart, action.payload],
       };
     case "REMOVE_FROM_CART":
-      const newCart = state.cart.filter((item) => item?._id !== action.payload.id);
+      const newCart = state.cart.filter(
+        (item) => item?._id !== action.payload.id
+      );
       return {
         ...state,
         cart: newCart,
@@ -24,10 +26,10 @@ export const reducer = (state, action) => {
         if (item?._id === action.payload.id) {
           return {
             ...item,
-            qty: item.qty++,
-          }
+            qty: item.qty + 1,
+          };
         }
-        return item
+        return item;
       });
       return {
         ...state,
@@ -39,10 +41,10 @@ export const reducer = (state, action) => {
         if (item?._id === action.payload.id) {
           return {
             ...item,
-            qty: item.qty--,
-          }
+            qty: item.qty - 1,
+          };
         }
-        return item
+        return item;
       });
       return {
         ...state,
@@ -50,10 +52,9 @@ export const reducer = (state, action) => {
       };
 
     case "SETSTATE":
-      return action.payload
-        
-    default :
-    return state;
-  }
+      return action.payload;
 
+    default:
+      return state;
+  }
 };
