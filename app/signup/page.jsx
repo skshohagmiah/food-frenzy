@@ -2,15 +2,16 @@
 /* eslint-disable react/no-unescaped-entities */
 // eslint-disable-next-line react/no-unescaped-entities
 import Link from "next/link";
+import { useRouter } from 'next/navigation';
 import { useState } from "react";
 import toast from 'react-hot-toast';
-
 
 
 const SignUp = () => {
   const [username, setUsername] = useState();
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
+  const router = useRouter();
 
   const handleSignup = async(e) => {
     e.preventDefault();
@@ -22,6 +23,7 @@ const SignUp = () => {
         });
         if(res.ok){
             toast.success("Sign up succesfull")
+            router.push('/')
         }
         if(!res.ok) {
             throw new Error()

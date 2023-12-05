@@ -11,7 +11,7 @@ export async function POST(req){
             return Response.json({message:'user already exist with this email'},{status:400})
         }
         const hashedPassword = await bcrypt.hash(password, 10);
-        await User.create({username,email,password:hashedPassword});
+        await User.create({name:username,email,password:hashedPassword});
         return Response.json('User sign up succesfully', {status:200})
 
 

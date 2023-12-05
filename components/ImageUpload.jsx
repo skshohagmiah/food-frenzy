@@ -104,7 +104,7 @@ const ImageUpload = () => {
     <>
       <Image
         className="rounded"
-        src={user?.user?.img}
+        src={user?.user?.image}
         alt="user pic"
         width={300}
         height={300}
